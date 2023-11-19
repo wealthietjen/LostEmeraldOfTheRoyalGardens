@@ -16,11 +16,6 @@ public class CommandWords
         "go", "quit", "help"
     };
 
-    private static final String[] specificCommands = 
-    {
-      "take", "read", "claim"  
-    };
-
     /**
      * Constructor - initialise the command words.
      */
@@ -37,10 +32,6 @@ public class CommandWords
     {
         for(int i = 0; i < validCommands.length; i++) {
             if(validCommands[i].equals(aString))
-                return true;
-        }
-        for(int i = 0; i < specificCommands.length; i++) {
-            if(specificCommands[i].equals(aString))
                 return true;
         }
         // if we get here, the string was not found in the commands

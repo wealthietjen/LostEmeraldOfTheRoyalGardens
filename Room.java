@@ -45,7 +45,7 @@ public class Room
     {
         System.out.println(detailedDesc);
     }
-    
+
     public void addItems(String[] roomItems) 
     {
         for (String items : roomItems) 
@@ -91,10 +91,21 @@ public class Room
      */
     private String getExitString()
     {
+        int i = 0;
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
-        for(String exit : keys) {
-            returnString += " " + exit;
+        for(String exit : keys) 
+        {
+            if (i < exits.size() -1) 
+            {
+                returnString += " " + exit + ",";
+                
+            }
+            else 
+            {
+                returnString += " " + exit;
+            }
+            i++;
         }
         return returnString;
     }
