@@ -19,6 +19,7 @@ import java.util.HashSet;
 public class Room 
 {
     private String description;
+    private String detailedDesc;
     private HashMap<String, Room> exits;        // stores exits of this room.
     public HashSet<String> allItems;
 
@@ -35,6 +36,16 @@ public class Room
         allItems = new HashSet<>();
     }
 
+    public void setDetailedDesc(String detailedDesc)
+    {
+        this.detailedDesc = detailedDesc;
+    }
+
+    public void getDetailedDesc()
+    {
+        System.out.println(detailedDesc);
+    }
+    
     public void addItems(String[] roomItems) 
     {
         for (String items : roomItems) 

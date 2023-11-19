@@ -57,34 +57,45 @@ public class Game
         // initialise room exits
         gardenEntrance.setExit("west", fieldOfGold);
         gardenEntrance.setExit("north", mellowMeadow);
+        gardenEntrance.setDetailedDesc("There are no items in this room to interact with.");
 
         fieldOfGold.setExit("east", gardenEntrance);
+        fieldOfGold.setDetailedDesc("There is an item in this room. \nType 'take bag' to collect.");
         
         mellowMeadow.setExit("north", holyGrail);
         mellowMeadow.setExit("south", gardenEntrance);
+        mellowMeadow.setDetailedDesc("There are no items in this room to interact with.");
         
         holyGrail.setExit("west", nightfallGarden);
         holyGrail.setExit("east", faerieLands);
         holyGrail.setExit("south", gardenEntrance);
+        holyGrail.setDetailedDesc("There is a children's storybook in this room. \nType 'read storybook' to learn more.");
 
         nightfallGarden.setExit("north", crystallinePath);
         nightfallGarden.setExit("east", holyGrail);
+        nightfallGarden.setDetailedDesc("There are no items in this room to interact with.");
 
         crystallinePath.setExit("south", nightfallGarden);
+        crystallinePath.setDetailedDesc("There are no items in this room to interact with.");
 
         faerieLands.setExit("north", tritonsTrident);
         faerieLands.setExit("west", holyGrail);
+        faerieLands.setDetailedDesc("There are no items in this room to interact with.");
 
         tritonsTrident.setExit("east", sunFields);
         tritonsTrident.setExit("north", riddledWonders);
         tritonsTrident.setExit("south", faerieLands);
+        tritonsTrident.setDetailedDesc("There are no items in this room to interact with.");
 
         sunFields.setExit("west", tritonsTrident);
+        sunFields.setDetailedDesc("There are no items in this room to interact with.");
 
         riddledWonders.setExit("west", jadePalace);
         riddledWonders.setExit("south", tritonsTrident);
+        riddledWonders.setDetailedDesc("There are no items in this room to interact with.");
 
         jadePalace.setExit("east", riddledWonders);
+        jadePalace.setDetailedDesc("Congratulations! \n You have made it to your destination. \nThe precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
 
         fieldOfGold.addItems(new String[] {"bag"});
         jadePalace.addItems(new String[] {"emerald"});
@@ -227,6 +238,7 @@ public class Game
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            currentRoom.getDetailedDesc();
         }
     }
 
