@@ -19,6 +19,11 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+
+    public static void main(String[] args) {
+        Game game1 = new Game();
+        game1.play();
+    }
         
     /**
      * Create the game and initialise its internal map.
@@ -60,6 +65,7 @@ public class Game
         
         holyGrail.setExit("west", nightfallGarden);
         holyGrail.setExit("east", faerieLands);
+        holyGrail.setExit("south", gardenEntrance);
 
         nightfallGarden.setExit("north", crystallinePath);
         nightfallGarden.setExit("east", holyGrail);
@@ -80,10 +86,9 @@ public class Game
 
         jadePalace.setExit("east", riddledWonders);
 
-        fieldOfGold.addItems(new String[] {"bag of coins"});
-        tritonsTrident.addItems(new String[] {"sword"});
+        fieldOfGold.addItems(new String[] {"bag"});
         jadePalace.addItems(new String[] {"emerald"});
-        holyGrail.addItems(new String[] {"children's storybook", "diary"});
+        holyGrail.addItems(new String[] {"storybook"});
         
         currentRoom = gardenEntrance;  // start game outside
     }
@@ -104,7 +109,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Thank you for playing. Good bye.");
     }
 
     /**
@@ -113,8 +118,8 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to the Royal Gardens!");
+        System.out.println("Royal Gardens is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -135,6 +140,7 @@ public class Game
         }
 
         String commandWord = command.getCommandWord();
+        String secondWord = command.getSecondWord();
         if (commandWord.equals("help")) {
             printHelp();
         }
@@ -143,6 +149,9 @@ public class Game
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
+        }
+        else if (commandWord.equals("take")) {
+            takeItem(secondWord);
         }
         // else command not recognised.
         return wantToQuit;
@@ -158,10 +167,41 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("around at the gardens.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
+    }
+
+    /**
+    /**
+    /**
+     * print out the story and history behind the royal gardens
+     * when the method is called
+     */
+    public void readStorybook()
+    {
+        System.out.println("the story will uh come prolly last");
+    }
+
+    public void takeItem(String item) 
+    {
+        if(item == null) 
+        {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Take what?");
+            return;
+        }
+    
+        if (currentRoom.allItems.contains(item)) 
+        {
+            System.out.println(item + " successfully added to inventory.");
+        }
+        else 
+        {
+            System.out.println("item is not in room.");
+        }
+        
     }
 
     /** 
@@ -189,6 +229,8 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }
+
+
 
     /** 
      * "Quit" was entered. Check the rest of the command to see

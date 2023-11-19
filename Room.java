@@ -20,7 +20,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private HashSet<String> allItems;
+    public HashSet<String> allItems;
 
     /**
      * Create a room described "description". Initially, it has
