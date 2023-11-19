@@ -36,6 +36,8 @@ public class Game
 
     /**
      * Create all the rooms and link their exits together.
+     * Also set the detailed desciption of whether there are any items 
+     * in the room to interact with
      */
     private void createRooms()
     {
@@ -161,6 +163,7 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        // establish a new command called "take"
         else if (commandWord.equals("take")) {
             takeItem(secondWord);
         }
@@ -195,11 +198,16 @@ public class Game
         System.out.println("the story will uh come prolly last");
     }
 
+    /**
+     * take the item in the room and add to inventory
+     * when the method is called
+     * @param item
+     */
     public void takeItem(String item) 
     {
         if(item == null) 
         {
-            // if there is no second word, we don't know where to go...
+            // if there is no second word, we don't know what to take...
             System.out.println("Take what?");
             return;
         }

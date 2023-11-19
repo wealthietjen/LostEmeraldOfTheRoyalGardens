@@ -95,6 +95,10 @@ public class Room
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) 
+        /**
+         * this is for structural purpose only. adding a comma after each exit in
+         * the list except for after the last item
+         */
         {
             if (i < exits.size() -1) 
             {
