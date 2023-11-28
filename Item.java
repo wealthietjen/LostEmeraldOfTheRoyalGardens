@@ -3,7 +3,7 @@ public class Item
   private String name; 
   private int weight;
   private String itemDesc;
-  private String isCollectible;
+  private String isCollectable;
 
   public Item(String name, int weight)
   {
@@ -31,19 +31,19 @@ public class Item
     return itemDesc;
   }
 
-  public void setCollectible(String isCollectible)
+  public void setCollectable(String iscollectable)
   {   
-      this.isCollectible = isCollectible;
+      this.isCollectable = iscollectable;
   }
 
-  public String getCollectible()
+  public String getCollectable()
   {
-      return isCollectible;
+      return isCollectable;
   }
 
-  public boolean isCollectibleItem()
+  public boolean isCollectableItem()
   {
-      if (isCollectible.equalsIgnoreCase("Storybook is not a collectible item.")) 
+      if (isCollectable.equalsIgnoreCase("Storybook is not a collectable item.")) 
       {
           return false;
       }

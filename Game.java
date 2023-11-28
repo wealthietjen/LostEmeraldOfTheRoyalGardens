@@ -109,13 +109,13 @@ public class Game
 
         // set item desc
         emerald.setItemDesc("You have officially won and obtained the wish-fulfilment gem! \nThink long and hard about your greatest desire and witness it come reality with a single wish. \nOur adventure ends here, though we hope to see you in our next one...");
-        bag.setItemDesc("A convenient tool that stores all your collectible items.");
+        bag.setItemDesc("A convenient tool that stores all your collectable items.");
         storybook.setItemDesc("Find out more about the Royal Gardens through this item...");
 
-        // determine whether item is collectible or not 
-        emerald.setCollectible("Emerald is a collectible item.");
-        bag.setCollectible("Bag is a collectible item.");
-        storybook.setCollectible("Storybook is not a collectible item.");
+        // determine whether item is collectable or not 
+        emerald.setCollectable("Emerald is a collectable item.");
+        bag.setCollectable("Bag is a collectable item.");
+        storybook.setCollectable("Storybook is not a collectable item.");
 
         // assign an item to each room
         jadePalace.assignItem(emerald);
@@ -174,18 +174,21 @@ public class Game
 
         String commandWord = command.getCommandWord();
         String secondWord = command.getSecondWord();
-        if (commandWord.equals("help")) {
+        if (commandWord.equalsIgnoreCase("help")) {
             printHelp();
         }
-        else if (commandWord.equals("go")) {
+        else if (commandWord.equalsIgnoreCase("go")) {
             goRoom(command);
         }
-        else if (commandWord.equals("quit")) {
+        else if (commandWord.equalsIgnoreCase("quit")) {
             wantToQuit = quit(command);
         }
         // establish a new command called "take"
-        else if (commandWord.equals("take")) {
+        else if (commandWord.equalsIgnoreCase("take")) {
             takeItem(secondWord);
+        }
+        else if (commandWord.equalsIgnoreCase("read")) {
+            readStorybook();
         }
         // else command not recognised.
         return wantToQuit;
@@ -259,11 +262,11 @@ public class Game
                 return;
             }
 
-            // check that they are trying to pick up a collectible item
-            if(assignedItem.isCollectibleItem() == false)
+            // check that they are trying to pick up a collectable item
+            if(assignedItem.isCollectableItem() == false)
             {
                 System.out.println();
-                System.out.println("Item is not collectible.");
+                System.out.println("Item is not collectable.");
                 return;
             }
 
