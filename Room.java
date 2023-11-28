@@ -22,6 +22,8 @@ public class Room
     private String detailedDesc;
     private HashMap<String, Room> exits;        // stores exits of this room.
     public HashSet<String> allItems;
+    private Item item;
+    private Room currentRoom;
 
     /**
      * Create a room described "description". Initially, it has
@@ -34,6 +36,26 @@ public class Room
         this.description = description;
         exits = new HashMap<>();
         allItems = new HashSet<>();
+    }
+
+    public void assignItem(Item item)
+    {
+        this.item = item;
+    }
+
+    public Item getAssignedItem()
+    {
+        return item;
+    }
+
+    public boolean hasAssignedItem()
+    {
+        if (currentRoom.getAssignedItem() != null) 
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void setDetailedDesc(String detailedDesc)

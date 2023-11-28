@@ -19,6 +19,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private int currentWeight = 0;
+    private int maxWeight = 60;
 
     public static void main(String[] args) {
         Game game1 = new Game();
@@ -44,7 +46,7 @@ public class Game
         Room gardenEntrance, fieldOfGold, mellowMeadow, holyGrail, nightfallGarden, crystallinePath, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
       
         // create the rooms
-        gardenEntrance = new Room("entrance to the royal gardens");
+        gardenEntrance = new Room("entrance to the Royal Gardens");
         fieldOfGold = new Room("in the Field of Gold");
         mellowMeadow = new Room("in the Mellow Meadow");
         holyGrail = new Room("in the Holy Grail");
@@ -99,13 +101,23 @@ public class Game
         jadePalace.setExit("east", riddledWonders);
         jadePalace.setDetailedDesc("Congratulations! \n You have made it to your destination. \nThe precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
 
-        fieldOfGold.addItems(new String[] {"bag"});
-        jadePalace.addItems(new String[] {"emerald"});
-        holyGrail.addItems(new String[] {"storybook"});
+
+        // create itens
+        Item emerald = new Item("emerald", 30);
+        Item bag = new Item("bag", 10);
+        Item storybook = new Item("Storybook", 20);
+
+        // assign an item to each room
+        jadePalace.assignItem(emerald);
+        fieldOfGold.assignItem(bag);
+        holyGrail.assignItem(storybook);
+
+        currentRoom.getAssignedItem();
         
         currentRoom = gardenEntrance;  // start game outside
     }
 
+    
 
     /**
      *  Main play routine.  Loops until end of play.
@@ -203,22 +215,40 @@ public class Game
      * when the method is called
      * @param item
      */
-    public void takeItem(String item) 
+    public void takeItem(String itemName) 
     {
-        if(item == null) 
+
+        if(itemName == null)
         {
             // if there is no second word, we don't know what to take...
             System.out.println("Take what?");
             return;
         }
-    
-        if (currentRoom.allItems.contains(item)) 
+
+        // get item from room
+            Item assignedItem = currentRoom.getAssignedItem();
+            int itemWeight = currentWeight =+ assignedItem.getWeight();
+        
+        if (itemWeight > maxWeight)
         {
-            System.out.println(item + " successfully added to inventory.");
+            System.out.println("You have reached the maximum carry weight. \n Place back some items before proceeding.");
+        }
+        
+        if (currentRoom.hasAssignedItem() == true)
+        {  
+            // Check that they are trying to pick up the assigned item
+            if(itemName != assignedItem.getName())
+            {
+                System.out.println("Item does not exist.");
+            }
+
+            // add to current weight if they are
+            currentWeight =+ assignedItem.getWeight();
+            System.out.println(assignedItem.getName() + " successfully added to inventory.");
         }
         else 
         {
-            System.out.println("item is not in room.");
+            System.out.println("Item is not in room.");
         }
         
     }
@@ -245,6 +275,7 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
+            System.out.println();
             System.out.println(currentRoom.getLongDescription());
             currentRoom.getDetailedDesc();
         }
