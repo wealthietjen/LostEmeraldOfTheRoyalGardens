@@ -103,9 +103,19 @@ public class Game
 
 
         // create itens
-        Item emerald = new Item("emerald", 30);
-        Item bag = new Item("bag", 10);
+        Item emerald = new Item("Emerald", 30);
+        Item bag = new Item("Bag", 10);
         Item storybook = new Item("Storybook", 20);
+
+        // set item desc
+        emerald.setItemDesc("You have officially won and obtained the wish-fulfilment gem! \nThink long and hard about your greatest desire and witness it come reality with a single wish. \nOur adventure ends here, though we hope to see you in our next one...");
+        bag.setItemDesc("A convenient tool that stores all your collectible items.");
+        storybook.setItemDesc("Find out more about the Royal Gardens through this item...");
+
+        // determine whether item is collectible or not 
+        emerald.setCollectible("Emerald is a collectible item.");
+        bag.setCollectible("Bag is a collectible item.");
+        storybook.setCollectible("Storybook is not a collectible item.");
 
         // assign an item to each room
         jadePalace.assignItem(emerald);
@@ -249,19 +259,21 @@ public class Game
                 return;
             }
 
+            // check that they are trying to pick up a collectible item
+            if(assignedItem.isCollectibleItem() == false)
+            {
+                System.out.println();
+                System.out.println("Item is not collectible.");
+                return;
+            }
+
             // add to current weight if they are
             currentWeight =+ assignedItem.getWeight();
-
+            System.out.println();
             System.out.println(assignedItem.getName() + " successfully added to inventory.");
+            System.out.println();
+            System.out.println(assignedItem.getItemDesc());
         }
-
-
-        
-        // if (itemName == "emerald") 
-        // {
-        //     item.getdescription();
-        //     System.out.println("Congratulations! You have officially won and obtained the wish-fulfilment gem. \nThink long and hard about your greatest desire and witness it come reality with a single wish. \nOur adventure ends here, though we hope to see you in our next one...");
-        // }
     }
 
     /** 
@@ -291,8 +303,6 @@ public class Game
             currentRoom.getDetailedDesc();
         }
     }
-
-
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
