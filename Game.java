@@ -111,8 +111,6 @@ public class Game
         jadePalace.assignItem(emerald);
         fieldOfGold.assignItem(bag);
         holyGrail.assignItem(storybook);
-
-        currentRoom.getAssignedItem();
         
         currentRoom = gardenEntrance;  // start game outside
     }
@@ -225,32 +223,45 @@ public class Game
             return;
         }
 
+      
+        // Check if the room even has an assigned item
+        if (currentRoom.hasAssignedItem() == false)  
+        {
+            // No item in room
+            return;
+        }
+
         // get item from room
-            Item assignedItem = currentRoom.getAssignedItem();
-            int itemWeight = currentWeight =+ assignedItem.getWeight();
+        Item assignedItem = currentRoom.getAssignedItem();
+        int itemWeight = assignedItem.getWeight();
         
-        if (itemWeight > maxWeight)
+        if ((currentWeight + itemWeight) > maxWeight)
         {
             System.out.println("You have reached the maximum carry weight. \n Place back some items before proceeding.");
         }
-        
-        if (currentRoom.hasAssignedItem() == true)
-        {  
+
+        else
+        {
             // Check that they are trying to pick up the assigned item
-            if(itemName != assignedItem.getName())
+            if(!itemName.equalsIgnoreCase(assignedItem.getName()))
             {
                 System.out.println("Item does not exist.");
+                return;
             }
 
             // add to current weight if they are
             currentWeight =+ assignedItem.getWeight();
+
             System.out.println(assignedItem.getName() + " successfully added to inventory.");
         }
-        else 
-        {
-            System.out.println("Item is not in room.");
-        }
+
+
         
+        // if (itemName == "emerald") 
+        // {
+        //     item.getdescription();
+        //     System.out.println("Congratulations! You have officially won and obtained the wish-fulfilment gem. \nThink long and hard about your greatest desire and witness it come reality with a single wish. \nOur adventure ends here, though we hope to see you in our next one...");
+        // }
     }
 
     /** 

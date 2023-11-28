@@ -23,7 +23,6 @@ public class Room
     private HashMap<String, Room> exits;        // stores exits of this room.
     public HashSet<String> allItems;
     private Item item;
-    private Room currentRoom;
 
     /**
      * Create a room described "description". Initially, it has
@@ -50,7 +49,7 @@ public class Room
 
     public boolean hasAssignedItem()
     {
-        if (currentRoom.getAssignedItem() != null) 
+        if (this.item != null) 
         {
             return true;
         }
