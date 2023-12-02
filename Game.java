@@ -129,12 +129,6 @@ public class Game
         jadePalace.assignItem(emerald);
         fieldOfGold.assignItem(bag);
         holyGrail.assignItem(storybook);
-
-
-        //if (fieldOfGold.hasAssignedItem().equals("Emerald")) 
-        //{
-            
-        //}
         
         currentRoom = gardenEntrance;  // start game outside
     }
@@ -156,8 +150,12 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        
-        System.out.println("Thank you for playing. Good bye.");
+
+        // set the winning condition
+        if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
+            {
+                System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
+            }
     }
 
     /**
