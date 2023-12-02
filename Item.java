@@ -31,9 +31,9 @@ public class Item
     return itemDesc;
   }
 
-  public void setCollectable(String iscollectable)
+  public void setCollectable(String isCollectable)
   {   
-      this.isCollectable = iscollectable;
+      this.isCollectable = isCollectable;
   }
 
   public String getCollectable()

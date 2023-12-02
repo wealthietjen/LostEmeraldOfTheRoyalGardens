@@ -1,4 +1,5 @@
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -18,11 +19,13 @@ import java.util.HashSet;
 
 public class Room 
 {
+    public static ArrayList<Room> allRoomsCreated = new ArrayList<Room>();
     private String description;
     private String detailedDesc;
     private HashMap<String, Room> exits;        // stores exits of this room.
     public HashSet<String> allItems;
     private Item item;
+    private String transporterRoom;
 
     /**
      * Create a room described "description". Initially, it has
@@ -35,6 +38,22 @@ public class Room
         this.description = description;
         exits = new HashMap<>();
         allItems = new HashSet<>();
+        Room.allRoomsCreated.add(this);
+    }
+
+    public void setTransporterRoom(String transporterRoom)
+    {
+        this.transporterRoom = transporterRoom;
+    }
+
+    public boolean isTransporterRoom()
+    {
+        if (transporterRoom.equalsIgnoreCase("is the magic transporter room")) 
+        {
+            return true;    
+        }
+
+        return false;
     }
 
     public void assignItem(Item item)

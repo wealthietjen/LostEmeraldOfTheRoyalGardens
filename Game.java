@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -130,6 +131,19 @@ public class Game
         jadePalace.assignItem(emerald);
         fieldOfGold.assignItem(bag);
         holyGrail.assignItem(storybook);
+
+        // determine which room is the magic transporter room
+        gardenEntrance.setTransporterRoom("is not the magic transporter room");
+        fieldOfGold.setTransporterRoom("is not the magic transporter room");
+        mellowMeadow.setTransporterRoom("is not the magic transporter room");
+        holyGrail.setTransporterRoom("is not the magic transporter room");
+        nightfallGarden.setTransporterRoom("is not the magic transporter room");
+        crystallinePath.setTransporterRoom("is the magic transporter room"); // this is the magic transporter room
+        faerieLands.setTransporterRoom("is not the magic transporter room");
+        tritonsTrident.setTransporterRoom("is not the magic transporter room");
+        sunFields.setTransporterRoom("is not the magic transporter room");
+        riddledWonders.setTransporterRoom("is not the magic transporter room");
+        jadePalace.setTransporterRoom("is not the magic transporter room");
         
         currentRoom = gardenEntrance;  // start game outside
     }
@@ -154,9 +168,42 @@ public class Game
 
         // set the winning condition
         if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
+        {
+            System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
+        }
+    
+        // setting up the magic transporter room
+        if (currentRoom.isTransporterRoom()) 
+        {
+            Random rand = new Random();
+            Room transportedRoom;
+            boolean foundRoom = false;
+            while (foundRoom == false)
             {
-                System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
+                /*
+                 * generate a random index according to the number of rooms 
+                 * in the game. 
+                 * current room is set to the transporter room. 
+                 * if the room the player will be transported to is not 
+                 * the current room then the player will the successfully transported. 
+                 * otherwise, the program will continue generating indexes until it
+                 * gets one which does not correspond to the magic transporter room.
+                 */
+                int upperbound = 10;
+                int randomIndex = rand.nextInt(upperbound);
+                transportedRoom = Room.allRoomsCreated.get(randomIndex);
+                if (!currentRoom.equals(transportedRoom))
+                {
+                    foundRoom = true;
+                }
+                
+                currentRoom = transportedRoom;
             }
+
+            System.out.println();
+            System.out.println(currentRoom.getLongDescription());
+            currentRoom.getDetailedDesc();
+        }
     }
 
     /**
@@ -240,7 +287,7 @@ public class Game
             System.out.println("No more rooms to go back to");
             return;
         }
-        
+
         ArrayList<Room> newList = new ArrayList<>();
         for (int i = 0; i < (roomsVisited.size() -1); i++)
         {
