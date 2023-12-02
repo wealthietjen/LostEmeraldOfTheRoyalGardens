@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -21,6 +23,11 @@ public class Game
     private Room currentRoom;
     private int currentWeight = 0;
     private int maxWeight = 60;
+    private ArrayList<Item> inventory = new ArrayList<Item>();
+    private Item emerald;
+    private Item bag;
+    private Item storybook;
+    private Room fieldOfGold;
 
     public static void main(String[] args) {
         Game game1 = new Game();
@@ -34,6 +41,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+
     }
 
     /**
@@ -43,7 +51,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room gardenEntrance, fieldOfGold, mellowMeadow, holyGrail, nightfallGarden, crystallinePath, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
+        Room gardenEntrance, mellowMeadow, holyGrail, nightfallGarden, crystallinePath, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
       
         // create the rooms
         gardenEntrance = new Room("entrance to the Royal Gardens");
@@ -99,28 +107,34 @@ public class Game
         riddledWonders.setDetailedDesc("There are no items in this room to interact with.");
 
         jadePalace.setExit("east", riddledWonders);
-        jadePalace.setDetailedDesc("Congratulations! \n You have made it to your destination. \nThe precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
+        jadePalace.setDetailedDesc("The precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
 
 
         // create itens
-        Item emerald = new Item("Emerald", 30);
-        Item bag = new Item("Bag", 10);
-        Item storybook = new Item("Storybook", 20);
+        emerald = new Item("Emerald", 30);
+        bag = new Item("Bag", 10);
+        storybook = new Item("Storybook", 20);
 
         // set item desc
-        emerald.setItemDesc("You have officially won and obtained the wish-fulfilment gem! \nThink long and hard about your greatest desire and witness it come reality with a single wish. \nOur adventure ends here, though we hope to see you in our next one...");
+        emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold.");
         bag.setItemDesc("A convenient tool that stores all your collectable items.");
         storybook.setItemDesc("Find out more about the Royal Gardens through this item...");
 
         // determine whether item is collectable or not 
-        emerald.setCollectable("Emerald is a collectable item.");
-        bag.setCollectable("Bag is a collectable item.");
-        storybook.setCollectable("Storybook is not a collectable item.");
+        emerald.setCollectable("Is a collectable item.");
+        bag.setCollectable("Is a collectable item.");
+        storybook.setCollectable("Is not a collectable item.");
 
         // assign an item to each room
         jadePalace.assignItem(emerald);
         fieldOfGold.assignItem(bag);
         holyGrail.assignItem(storybook);
+
+
+        //if (fieldOfGold.hasAssignedItem().equals("Emerald")) 
+        //{
+            
+        //}
         
         currentRoom = gardenEntrance;  // start game outside
     }
@@ -142,6 +156,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
+        
         System.out.println("Thank you for playing. Good bye.");
     }
 
@@ -188,7 +203,10 @@ public class Game
             takeItem(secondWord);
         }
         else if (commandWord.equalsIgnoreCase("read")) {
-            readStorybook();
+            readStorybook(secondWord);
+        }
+        else if(commandWord.equalsIgnoreCase("place")) {
+            placeItem(secondWord);
         }
         // else command not recognised.
         return wantToQuit;
@@ -203,6 +221,7 @@ public class Game
      */
     private void printHelp() 
     {
+        System.out.println();
         System.out.println("You are lost. You are alone. You wander");
         System.out.println("around at the gardens.");
         System.out.println();
@@ -216,8 +235,27 @@ public class Game
      * print out the story and history behind the royal gardens
      * when the method is called
      */
-    public void readStorybook()
+    public void readStorybook(String itemName)
     {
+        if(itemName == null)
+        {
+            // if there is no second word, we don't know what to read...
+            System.out.println("Read what?");
+            return;
+        }
+
+        if (!itemName.equalsIgnoreCase("storybook")) 
+        {
+            System.out.println("Item is not readable.");
+            return;
+        }
+
+        if (currentRoom.hasAssignedItem() == false) 
+        {
+            System.out.println("There is no item in the room."); 
+            return;   
+        }
+        
         System.out.println("the story will uh come prolly last");
     }
 
@@ -236,11 +274,11 @@ public class Game
             return;
         }
 
-      
         // Check if the room even has an assigned item
         if (currentRoom.hasAssignedItem() == false)  
         {
             // No item in room
+            System.out.println("There is no item in the room.");
             return;
         }
 
@@ -248,9 +286,10 @@ public class Game
         Item assignedItem = currentRoom.getAssignedItem();
         int itemWeight = assignedItem.getWeight();
         
+        // unable to pick up item if the total weight exceeds max weight that can be carried at a time
         if ((currentWeight + itemWeight) > maxWeight)
         {
-            System.out.println("You have reached the maximum carry weight. \n Place back some items before proceeding.");
+            System.out.println("You have reached the maximum carry weight. \n Return back some items before proceeding.");
         }
 
         else
@@ -276,8 +315,45 @@ public class Game
             System.out.println(assignedItem.getName() + " successfully added to inventory.");
             System.out.println();
             System.out.println(assignedItem.getItemDesc());
+            currentRoom.assignItem(null);
+
+            // add to inventory if successfully picked up
+            inventory.add(assignedItem);
         }
     }
+
+    public void placeItem(String itemName)
+    {
+        if(itemName == null)
+        {
+            // if there is no second word, we don't know what to place...
+            System.out.println("place what?");
+            return;
+        }
+
+        if (!(itemName.equals("bag") || itemName.equals("storybook") || itemName.equals("emerald")))
+        {
+            System.out.println("Invalid item inside world");
+        }
+
+        for (Item i: inventory)
+        {
+            if (i.getName().equalsIgnoreCase(itemName))
+            {
+                // return the item to the current room and remove from inventory
+                System.out.println(itemName + " has been removed from your inventory.");
+                // currentRoom.assignItem(itemName);
+
+                // remove from inventory 
+                inventory.remove(i);
+
+                return;
+            }
+        }
+        System.out.println("Item is not in your inventory.");
+        
+
+    }   
 
     /** 
      * Try to in to one direction. If there is an exit, enter the new

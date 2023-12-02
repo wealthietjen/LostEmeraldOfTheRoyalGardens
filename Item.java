@@ -43,7 +43,7 @@ public class Item
 
   public boolean isCollectableItem()
   {
-      if (isCollectable.equalsIgnoreCase("Storybook is not a collectable item.")) 
+      if (isCollectable.equalsIgnoreCase("Is not a collectable item.")) 
       {
           return false;
       }
