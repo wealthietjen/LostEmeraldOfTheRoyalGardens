@@ -28,6 +28,7 @@ public class Game
     private Item bag;
     private Item storybook;
     private Room fieldOfGold;
+    private ArrayList<Room> roomsVisited = new ArrayList<Room>();
 
     public static void main(String[] args) {
         Game game1 = new Game();
@@ -206,6 +207,9 @@ public class Game
         else if(commandWord.equalsIgnoreCase("place")) {
             placeItem(secondWord);
         }
+        else if(commandWord.equalsIgnoreCase("back")) {
+            goBack();
+        }
         // else command not recognised.
         return wantToQuit;
     }
@@ -225,6 +229,30 @@ public class Game
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
+    }
+
+    // go back to the previous room visited
+
+    private void goBack()
+    {
+        if (roomsVisited.size() == 0)
+        {
+            System.out.println("No more rooms to go back to");
+            return;
+        }
+        
+        ArrayList<Room> newList = new ArrayList<>();
+        for (int i = 0; i < (roomsVisited.size() -1); i++)
+        {
+            newList.add(roomsVisited.get(i));
+        }
+        Room lastRoomVisited = roomsVisited.get(roomsVisited.size() - 1);
+        roomsVisited = newList;
+        currentRoom = lastRoomVisited;
+
+        System.out.println();
+        System.out.println(currentRoom.getLongDescription());
+        currentRoom.getDetailedDesc();
     }
 
     /**
@@ -374,10 +402,12 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            roomsVisited.add(currentRoom);
             currentRoom = nextRoom;
             System.out.println();
             System.out.println(currentRoom.getLongDescription());
             currentRoom.getDetailedDesc();
+            
         }
     }
 
