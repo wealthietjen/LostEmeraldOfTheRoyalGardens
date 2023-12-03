@@ -3,12 +3,18 @@ public class Item
   private String name; 
   private int weight;
   private String itemDesc;
-  private String isCollectable;
+  private boolean isCollectableItem = false;
 
-  public Item(String name, int weight)
+  public Item(String name, int weight, boolean isCollectableItem)
   {
     this.name = name;
     this.weight = weight;
+    this.isCollectableItem = isCollectableItem;
+  }
+
+  public boolean isCollectableItem()
+  {
+    return isCollectableItem;
   }
 
   public String getName()
@@ -29,25 +35,5 @@ public class Item
   public String getItemDesc()
   {
     return itemDesc;
-  }
-
-  public void setCollectable(String isCollectable)
-  {   
-      this.isCollectable = isCollectable;
-  }
-
-  public String getCollectable()
-  {
-      return isCollectable;
-  }
-
-  public boolean isCollectableItem()
-  {
-      if (isCollectable.equalsIgnoreCase("Is not a collectable item.")) 
-      {
-          return false;
-      }
-
-      return true;
   }
 }

@@ -25,7 +25,7 @@ public class Room
     private HashMap<String, Room> exits;        // stores exits of this room.
     public HashSet<String> allItems;
     private Item item;
-    private String transporterRoom;
+    private boolean isTransporterRoom;
 
     /**
      * Create a room described "description". Initially, it has
@@ -33,27 +33,18 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, boolean isTransporterRoom)
     {
         this.description = description;
+        this.isTransporterRoom = isTransporterRoom;
         exits = new HashMap<>();
         allItems = new HashSet<>();
         Room.allRoomsCreated.add(this);
     }
 
-    public void setTransporterRoom(String transporterRoom)
-    {
-        this.transporterRoom = transporterRoom;
-    }
-
     public boolean isTransporterRoom()
     {
-        if (transporterRoom == "is the magic transporter room") 
-        {
-            return true;    
-        }
-
-        return false;
+        return this.isTransporterRoom;
     }
 
     public void assignItem(Item item)

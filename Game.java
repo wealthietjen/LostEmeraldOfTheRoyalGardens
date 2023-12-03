@@ -35,6 +35,7 @@ public class Game
     private Room crystallinePath;
     private ArrayList<Room> roomsVisited = new ArrayList<Room>();
 
+
     public static void main(String[] args) {
         Game game1 = new Game();
         game1.play();
@@ -60,17 +61,17 @@ public class Game
         Room gardenEntrance, mellowMeadow, holyGrail, nightfallGarden, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
       
         // create the rooms
-        gardenEntrance = new Room("entrance to the Royal Gardens");
-        fieldOfGold = new Room("in the Field of Gold");
-        mellowMeadow = new Room("in the Mellow Meadow");
-        holyGrail = new Room("in the Holy Grail");
-        nightfallGarden = new Room("in the Nightfall Garden");
-        crystallinePath = new Room("in the Crystalline Path");
-        faerieLands = new Room("in the Faerie Lands");
-        tritonsTrident = new Room("in Triton's Trident");
-        sunFields = new Room("in the Sun Fields");
-        riddledWonders = new Room("in the Riddled Wonders");
-        jadePalace = new Room("in the Jade Palace");
+        gardenEntrance = new Room("entrance to the Royal Gardens", false);
+        fieldOfGold = new Room("in the Field of Gold", false);
+        mellowMeadow = new Room("in the Mellow Meadow", false);
+        holyGrail = new Room("in the Holy Grail", false);
+        nightfallGarden = new Room("in the Nightfall Garden", false);
+        crystallinePath = new Room("in the Crystalline Path", true);
+        faerieLands = new Room("in the Faerie Lands", false);
+        tritonsTrident = new Room("in Triton's Trident", false);
+        sunFields = new Room("in the Sun Fields", false);
+        riddledWonders = new Room("in the Riddled Wonders", false);
+        jadePalace = new Room("in the Jade Palace", false);
         
         // initialise room exits
         gardenEntrance.setExit("west", fieldOfGold);
@@ -115,44 +116,27 @@ public class Game
         jadePalace.setExit("east", riddledWonders);
         jadePalace.setDetailedDesc("The precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
 
-
-        // create itens
-        emerald = new Item("Emerald", 30);
-        bag = new Item("Bag", 10);
-        storybook = new Item("Storybook", 20);
+        // create items and set whether they are collectable or not
+        emerald = new Item("Emerald", 30, true);
+        bag = new Item("Bag", 10, true);
+        storybook = new Item("Storybook", 20, false);
 
         // set item desc
         emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold.");
         bag.setItemDesc("A convenient tool that stores all your collectable items.");
         storybook.setItemDesc("Find out more about the Royal Gardens through this item...");
 
-        // determine whether item is collectable or not 
-        emerald.setCollectable("Is a collectable item.");
-        bag.setCollectable("Is a collectable item.");
-        storybook.setCollectable("Is not a collectable item.");
-
         // assign an item to each room
         jadePalace.assignItem(emerald);
         fieldOfGold.assignItem(bag);
         holyGrail.assignItem(storybook);
 
-        // determine which room is the magic transporter room
-        gardenEntrance.setTransporterRoom("is not the magic transporter room");
-        fieldOfGold.setTransporterRoom("is not the magic transporter room");
-        mellowMeadow.setTransporterRoom("is not the magic transporter room");
-        holyGrail.setTransporterRoom("is not the magic transporter room");
-        nightfallGarden.setTransporterRoom("is not the magic transporter room");
-        crystallinePath.setTransporterRoom("is the magic transporter room"); // this is the magic transporter room
-        faerieLands.setTransporterRoom("is not the magic transporter room");
-        tritonsTrident.setTransporterRoom("is not the magic transporter room");
-        sunFields.setTransporterRoom("is not the magic transporter room");
-        riddledWonders.setTransporterRoom("is not the magic transporter room");
-        jadePalace.setTransporterRoom("is not the magic transporter room");
-
+        // make the characters
         faerie = new Character("faerie", faerieLands, tritonsTrident);
         goblin = new Character("goblin", holyGrail, mellowMeadow);
         elf = new Character("elf", jadePalace, riddledWonders);
 
+        // set the character desciption
         faerie.setCharDesc("There is a small garden faerie in the room with you. \nIt is friendly and normally found within the Faerie Lands or Triton's Trident.");
         goblin.setCharDesc("The Royal Gardens have their own set of guards overlooking the rooms. \nThere is currently one in the room with you, our trusted goblin. \nHe patrols the Mellow Meadows and Holy Grail, keeping an eye out for any pests.");
         elf.setCharDesc("The Royal Gardens' very own knight elf accompanies you in this room. She guards over two rooms, the Jade Palace and the Riddled Wonders.");
@@ -160,9 +144,7 @@ public class Game
         currentRoom = gardenEntrance;  // start game outside
 
     }
-
     
-
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -280,6 +262,7 @@ public class Game
 
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+        System.out.println();
         currentRoom.getDetailedDesc();
     }
 
@@ -466,6 +449,7 @@ public class Game
             currentRoom = nextRoom;
             System.out.println();
             System.out.println(currentRoom.getLongDescription());
+            System.out.println();
             currentRoom.getDetailedDesc();
 
             // make the characters move between the rooms
