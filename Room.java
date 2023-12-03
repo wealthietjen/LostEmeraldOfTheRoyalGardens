@@ -48,7 +48,7 @@ public class Room
 
     public boolean isTransporterRoom()
     {
-        if (transporterRoom.equalsIgnoreCase("is the magic transporter room")) 
+        if (transporterRoom == "is the magic transporter room") 
         {
             return true;    
         }

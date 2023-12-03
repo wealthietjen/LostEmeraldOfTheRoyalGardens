@@ -29,6 +29,7 @@ public class Game
     private Item bag;
     private Item storybook;
     private Room fieldOfGold;
+    private Room crystallinePath;
     private ArrayList<Room> roomsVisited = new ArrayList<Room>();
 
     public static void main(String[] args) {
@@ -53,7 +54,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room gardenEntrance, mellowMeadow, holyGrail, nightfallGarden, crystallinePath, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
+        Room gardenEntrance, mellowMeadow, holyGrail, nightfallGarden, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
       
         // create the rooms
         gardenEntrance = new Room("entrance to the Royal Gardens");
@@ -159,50 +160,18 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
 
-        // set the winning condition
+        // setting the winning condition
         if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
         {
             System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
         }
-    
-        // setting up the magic transporter room
-        if (currentRoom.isTransporterRoom()) 
+        
+        boolean finished = false;
+        while (! finished) 
         {
-            Random rand = new Random();
-            Room transportedRoom;
-            boolean foundRoom = false;
-            while (foundRoom == false)
-            {
-                /*
-                 * generate a random index according to the number of rooms 
-                 * in the game. 
-                 * current room is set to the transporter room. 
-                 * if the room the player will be transported to is not 
-                 * the current room then the player will the successfully transported. 
-                 * otherwise, the program will continue generating indexes until it
-                 * gets one which does not correspond to the magic transporter room.
-                 */
-                int upperbound = 10;
-                int randomIndex = rand.nextInt(upperbound);
-                transportedRoom = Room.allRoomsCreated.get(randomIndex);
-                if (!currentRoom.equals(transportedRoom))
-                {
-                    foundRoom = true;
-                }
-                
-                currentRoom = transportedRoom;
-            }
-
-            System.out.println();
-            System.out.println(currentRoom.getLongDescription());
-            currentRoom.getDetailedDesc();
+        Command command = parser.getCommand();
+        finished = processCommand(command);
         }
     }
 
@@ -415,10 +384,12 @@ public class Game
             {
                 // return the item to the current room and remove from inventory
                 System.out.println(itemName + " has been removed from your inventory.");
-                // currentRoom.assignItem(itemName);
 
                 // remove from inventory 
                 inventory.remove(i);
+
+                // add to the room
+                currentRoom.assignItem(i);
 
                 return;
             }
@@ -449,7 +420,37 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            roomsVisited.add(currentRoom);
+
+            // setting up the magic transporter room
+            if (nextRoom.isTransporterRoom() == true) 
+            {   
+                System.out.println();
+                System.out.println("You have entered the magic teleporter room. \nYou will now be teleported to a random room in the Royal Gardens.");
+                Random rand = new Random();
+                int upperBound = 10;
+                while (nextRoom.isTransporterRoom() == true)
+                {
+                    /*
+                    * generate a random index according to the number of rooms 
+                    * in the game. 
+                    * current room is set to the transporter room. 
+                    * if the room the player will be transported to is not 
+                    * the current room then the player will the successfully transported. 
+                    * otherwise, the program will continue generating indexes until it
+                    * gets one which does not correspond to the magic transporter room.
+                    */
+                    int randomIndex = rand.nextInt(upperBound);
+                    nextRoom = Room.allRoomsCreated.get(randomIndex);
+                }
+                roomsVisited.clear(); // cannot go back to this room
+            }
+
+            else
+            {
+                roomsVisited.add(currentRoom); // add to rooms visited
+            }
+
+            // do for both
             currentRoom = nextRoom;
             System.out.println();
             System.out.println(currentRoom.getLongDescription());
