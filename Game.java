@@ -28,6 +28,9 @@ public class Game
     private Item emerald;
     private Item bag;
     private Item storybook;
+    private Character faerie;
+    private Character goblin;
+    private Character elf;
     private Room fieldOfGold;
     private Room crystallinePath;
     private ArrayList<Room> roomsVisited = new ArrayList<Room>();
@@ -145,8 +148,17 @@ public class Game
         sunFields.setTransporterRoom("is not the magic transporter room");
         riddledWonders.setTransporterRoom("is not the magic transporter room");
         jadePalace.setTransporterRoom("is not the magic transporter room");
+
+        faerie = new Character("faerie", faerieLands, tritonsTrident);
+        goblin = new Character("goblin", holyGrail, mellowMeadow);
+        elf = new Character("elf", jadePalace, riddledWonders);
+
+        faerie.setCharDesc("There is a small garden faerie in the room with you. \nIt is friendly and normally found within the Faerie Lands or Triton's Trident.");
+        goblin.setCharDesc("The Royal Gardens have their own set of guards overlooking the rooms. \nThere is currently one in the room with you, our trusted goblin. \nHe patrols the Mellow Meadows and Holy Grail, keeping an eye out for any pests.");
+        elf.setCharDesc("The Royal Gardens' very own knight elf accompanies you in this room. She guards over two rooms, the Jade Palace and the Riddled Wonders.");
         
         currentRoom = gardenEntrance;  // start game outside
+
     }
 
     
@@ -455,6 +467,29 @@ public class Game
             System.out.println();
             System.out.println(currentRoom.getLongDescription());
             currentRoom.getDetailedDesc();
+
+            // make the characters move between the rooms
+            elf.changeRoom();
+            goblin.changeRoom();
+            faerie.changeRoom();
+
+            // if the player and character are in the same room, let the player know
+            if (currentRoom.equals(faerie.getCurrentRoom()))
+            {
+                System.out.println();
+                System.out.println(faerie.getCharDesc());
+            }
+            else if (currentRoom.equals(elf.getCurrentRoom()))
+            {
+                System.out.println();
+                System.out.println(elf.getCharDesc());
+            }
+            else if (currentRoom.equals(goblin.getCurrentRoom())) 
+            {
+                System.out.println();
+                System.out.println(goblin.getCharDesc());    
+            }
+
             
         }
     }
