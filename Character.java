@@ -1,5 +1,8 @@
 /**
- * the Character class determines the attributes each character created will have
+ * the Character class determines the attributes each character created will have.
+ * 
+ * each character moves between two rooms that have been assigned to them. they cannot be 
+ * interacted with; player will only know if they are currently in the same space as a character.
  */
 
 public class Character 

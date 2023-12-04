@@ -115,7 +115,7 @@ public class Game
         riddledWonders.setDetailedDesc("There are no items in this room to interact with.");
 
         jadePalace.setExit("east", riddledWonders);
-        jadePalace.setDetailedDesc("The precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
+        jadePalace.setDetailedDesc("The precious stone you seek for lies in this room. \nType 'take emerald' to claim.");
 
         // create items and set their weight and whether they are collectable or not
         emerald = new Item("Emerald", 30, true);
@@ -139,8 +139,8 @@ public class Game
 
         // set the character desciption
         faerie.setCharDesc("There is a small garden faerie in the room with you. \nIt is friendly and normally found within the Faerie Lands or Triton's Trident.");
-        goblin.setCharDesc("The Royal Gardens have their own set of guards overlooking the rooms. \nThere is currently one in the room with you, our trusted goblin. \nHe patrols the Mellow Meadows and Holy Grail, keeping an eye out for any pests.");
-        elf.setCharDesc("The Royal Gardens' very own knight elf accompanies you in this room. She guards over two rooms, the Jade Palace and the Riddled Wonders.");
+        goblin.setCharDesc("The Royal Gardens have their own set of guards overlooking the rooms. \nThere is currently one in the room with you, our trusted goblin. \nHe patrols the Mellow Meadows and Holy Grail.");
+        elf.setCharDesc("The Royal Gardens' very own knight elf accompanies you in this room. \nShe guards over two rooms, the Jade Palace and the Riddled Wonders.");
         
         currentRoom = gardenEntrance;  // start game at the garden entrance
 
@@ -343,7 +343,7 @@ public class Game
         // unable to pick up item if the total weight exceeds max weight that can be carried at a time
         if ((currentWeight + itemWeight) > maxWeight)
         {
-            System.out.println("You have reached the maximum carry weight. \n Return back some items before proceeding.");
+            System.out.println("You have reached the maximum carry weight. \nReturn back some items before proceeding.");
         }
 
         else
