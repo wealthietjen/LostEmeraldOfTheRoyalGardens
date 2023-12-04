@@ -53,8 +53,9 @@ public class Game
 
     /**
      * Create all the rooms and link their exits together.
-     * Also set the detailed desciption of whether there are any items 
-     * in the room to interact with
+     * Create and assign items to their respective rooms and set the detailed desciption of whether there are any items 
+     * in the room to interact with. Also set whether the items are collectable or not.
+     * Create and assign characters to their respective rooms. Set the rooms they are meant to alternate between and their character descriptions.
      */
     private void createRooms()
     {
@@ -116,7 +117,7 @@ public class Game
         jadePalace.setExit("east", riddledWonders);
         jadePalace.setDetailedDesc("The precious stone you seek for lies in this room. \n Type 'take emerald' to claim.");
 
-        // create items and set whether they are collectable or not
+        // create items and set their weight and whether they are collectable or not
         emerald = new Item("Emerald", 30, true);
         bag = new Item("Bag", 10, true);
         fallenNote = new Item("Fallen note", 5, false);
@@ -131,7 +132,7 @@ public class Game
         fieldOfGold.assignItem(bag);
         holyGrail.assignItem(fallenNote);
 
-        // make the characters
+        // create characters and set their assigned rooms to alternate between
         faerie = new Character("faerie", faerieLands, tritonsTrident);
         goblin = new Character("goblin", holyGrail, mellowMeadow);
         elf = new Character("elf", jadePalace, riddledWonders);
@@ -141,7 +142,7 @@ public class Game
         goblin.setCharDesc("The Royal Gardens have their own set of guards overlooking the rooms. \nThere is currently one in the room with you, our trusted goblin. \nHe patrols the Mellow Meadows and Holy Grail, keeping an eye out for any pests.");
         elf.setCharDesc("The Royal Gardens' very own knight elf accompanies you in this room. She guards over two rooms, the Jade Palace and the Riddled Wonders.");
         
-        currentRoom = gardenEntrance;  // start game outside
+        currentRoom = gardenEntrance;  // start game at the garden entrance
 
     }
     
@@ -156,16 +157,17 @@ public class Game
         // execute them until the game is over.
         
         boolean finished = false;
-        while (! finished) 
+        while (!finished) 
         {
             Command command = parser.getCommand();
             finished = processCommand(command);
             
-            // setting the winning condition
+            // set the winning condition
+            // once satisfied, game finishes and quits
             if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
             {
                 System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
-                finished = true;
+                finished = true; 
             }
 
         }
@@ -223,11 +225,10 @@ public class Game
         else if(commandWord.equalsIgnoreCase("back")) {
             goBack();
         }
+
         // else command not recognised.
         return wantToQuit;
     }
-
-    // implementations of user commands:
 
     /**
      * Print out some help information.
@@ -245,15 +246,18 @@ public class Game
     }
 
     // go back to the previous room visited
-
     private void goBack()
     {
+        // if there are no more rooms to go back to or the player has just spawened into the game
         if (roomsVisited.size() == 0)
         {
             System.out.println("No more rooms to go back to");
             return;
         }
 
+        // make a new list of rooms visited excluding the current room and set that as the new roomsVisited list.
+        // get the last room visited by getting the room stored in the second last index of the roomsVisited list.
+        // set that last room visited as the current room and print out the room's desciption. 
         ArrayList<Room> newList = new ArrayList<>();
         for (int i = 0; i < (roomsVisited.size() -1); i++)
         {
@@ -271,9 +275,7 @@ public class Game
     }
 
     /**
-    /**
-    /**
-     * print out the story and history behind the royal gardens
+     * print out the small backstory of the royal gardens
      * when the method is called
      */
     public void readFallenNote(String itemName)
@@ -287,16 +289,19 @@ public class Game
 
         if (!itemName.equalsIgnoreCase("fallen note")) 
         {
+            // if the second word is not a readable item, it cannot be read
             System.out.println("Item is not readable.");
             return;
         }
 
         if (currentRoom.hasAssignedItem() == false) 
         {
-            System.out.println("There is no item in the room."); 
+            // if there is no item in the current room then there is nothing to be read
+            System.out.println("There is no item to read in the room."); 
             return;   
         }
 
+        // set and print the contents of the fallen note
         setStory = "'The Royal Gardens is a place full of wonders and magic. It is home to some of the most beautiful and exotic flora and fauna one could ever hope to see in their lifetime. \nThis is a place wherein every creature - big or small - lives in harmony. \nThe royal family to which this garden belongs to still reigns to this day. It took them many years to develop the gardens into the beauty it is today, and as such, \nthe Royal Gardens became a symbol of determination and strength unlike any other. \nOnly members of the royal family and those appointed by them are allowed access to the gardens. Otherwise, entry to the Royal Gardens is strictly prohibited.'";
         System.out.println();
         System.out.println("The note reads...");
@@ -309,8 +314,9 @@ public class Game
 
     /**
      * take the item in the room and add to inventory
-     * when the method is called
-     * @param item
+     * when the method is called. this is only if the total weight of the player and items do not exceed the 
+     * maximum weight the player can carry.
+     * @param itemName is the name of the item being taken/picked up by the player
      */
     public void takeItem(String itemName) 
     {
@@ -326,11 +332,11 @@ public class Game
         if (currentRoom.hasAssignedItem() == false)  
         {
             // No item in room
-            System.out.println("There is no item in the room.");
+            System.out.println("There is no item to take in the room.");
             return;
         }
 
-        // get item from room
+        // get item and its weight from room
         Item assignedItem = currentRoom.getAssignedItem();
         int itemWeight = assignedItem.getWeight();
         
@@ -360,16 +366,21 @@ public class Game
             // add to current weight if they are
             currentWeight =+ assignedItem.getWeight();
             System.out.println();
+
+            // add to inventory if item successfully picked up and print out its description
+            inventory.add(assignedItem);
             System.out.println(assignedItem.getName() + " successfully added to inventory.");
             System.out.println();
             System.out.println(assignedItem.getItemDesc());
             currentRoom.assignItem(null);
-
-            // add to inventory if successfully picked up
-            inventory.add(assignedItem);
+            
         }
     }
 
+    /**
+     * remove item in player's inventory and place it into the current room they are in.
+     * @param itemName is the name of the item being placed back.
+     */
     public void placeItem(String itemName)
     {
         if(itemName == null)
@@ -379,12 +390,14 @@ public class Game
             return;
         }
 
+        // check if the item exists in this game
         if (!(itemName.equalsIgnoreCase("bag") || itemName.equalsIgnoreCase("fallen note") || itemName.equalsIgnoreCase("emerald")))
         {
-            System.out.println("Invalid item inside world");
+            System.out.println("Invalid item inside game");
             return;
         }
 
+        // removing from inventory and adding to the room
         for (Item i: inventory)
         {
             if (i.getName().equalsIgnoreCase(itemName))
@@ -403,6 +416,8 @@ public class Game
                 return;
             }
         }
+
+        // print if the item is not in player's inventory
         System.out.println("Item is not in your inventory.");
         
 
@@ -451,7 +466,7 @@ public class Game
                     int randomIndex = rand.nextInt(upperBound);
                     nextRoom = Room.allRoomsCreated.get(randomIndex);
                 }
-                roomsVisited.clear(); // cannot go back to this room
+                roomsVisited.clear(); // cannot go back to magic transporter room
             }
 
             else
@@ -467,7 +482,7 @@ public class Game
             System.out.println();
             currentRoom.getDetailedDesc();
 
-            // make the characters move between the rooms
+            // make the characters move between their designated rooms
             elf.changeRoom();
             goblin.changeRoom();
             faerie.changeRoom();
@@ -491,8 +506,6 @@ public class Game
                 System.out.println(goblin.getCharDesc());   
                 System.out.println(); 
             }
-
-            
         }
     }
 
