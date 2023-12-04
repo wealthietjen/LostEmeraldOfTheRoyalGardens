@@ -154,18 +154,18 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-
-        // setting the winning condition
-        if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
-        {
-            System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
-        }
         
         boolean finished = false;
         while (! finished) 
         {
-        Command command = parser.getCommand();
-        finished = processCommand(command);
+            Command command = parser.getCommand();
+            finished = processCommand(command);
+            
+            // setting the winning condition
+            if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
+            {
+                System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
+            }
         }
     }
 
