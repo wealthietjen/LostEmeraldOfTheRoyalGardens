@@ -1,12 +1,10 @@
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashMap;
+// Wealthie Tjendera K22046226
 
 /**
  * Class Room - a room in an adventure game.
  *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * This class is part of the "Lost Emerald of the Royal Gardens" application. 
+ * "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.  
  *
  * A "Room" represents one location in the scenery of the game.  It is 
  * connected to other rooms via exits.  For each existing exit, the room 
@@ -15,6 +13,10 @@ import java.util.HashMap;
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Room 
 {
@@ -168,4 +170,3 @@ public class Room
         return exits.get(direction);
     }
 }
-

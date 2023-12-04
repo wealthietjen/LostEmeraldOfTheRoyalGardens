@@ -1,10 +1,13 @@
+// Wealthie Tjendera K22046226
+
 /**
- * the Item class defines the attributes that each item created will have.
+ * This class is part of the "Lost Emerald of the Royal Gardens" application.
+ * "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.
  * 
- * an item is assigned to a room and it can be interacted with in several ways. 
- * some items are collectable and some are not. each item has their own corresponding weight.
- * collectable items can be taken and added to each player's respective inventories and thus, can also be 
- * removed from the inventory and placed at in a desired room.
+ * An "Item" is created and assigned to a Room and it can be interacted with in several ways. 
+ * Some items are collectable and some are not. Each item has their own corresponding weight.
+ * Collectable items can be taken and added to each player's respective inventories and thus, can also be 
+ * removed from the inventory and placed at in a desired Room.
  */
 
 public class Item 

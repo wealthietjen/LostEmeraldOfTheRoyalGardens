@@ -1,8 +1,8 @@
-import java.util.Scanner;
+// Wealthie Tjendera K22046226
 
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * This class is part of the "Lost Emerald of the Royal Gardens" application. 
+ * "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.  
  * 
  * This parser reads user input and tries to interpret it as an "Adventure"
  * command. Every time it is called it reads a line from the terminal and
@@ -16,6 +16,9 @@ import java.util.Scanner;
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+
+import java.util.Scanner;
+
 public class Parser 
 {
     private CommandWords commands;  // holds all valid command words

@@ -1,8 +1,11 @@
+// Wealthie Tjendera K22046226
+
 /**
- * the Character class determines the attributes each character created will have.
+ * The Character class is part of the 'Lost Emerald of the Royal Gardens' application
+ * "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.
  * 
- * each character moves between two rooms that have been assigned to them. they cannot be 
- * interacted with; player will only know if they are currently in the same space as a character.
+ * Each "Character" moves between two rooms that have been assigned to them. They cannot be 
+ * interacted with; player will only know if they are currently in the same space as a character and get their description.
  */
 
 public class Character 

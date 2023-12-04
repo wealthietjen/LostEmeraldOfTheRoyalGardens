@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.Random;
+// Wealthie Tjendera K22046226
 
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
+ *  This class is the main class of the "Lost Emerald of the Royal Gardens" application. 
+ *  "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.  Users 
+ *  can walk around some scenery.
  * 
  *  To play this game, create an instance of this class and call the "play"
  *  method.
@@ -17,6 +15,9 @@ import java.util.Random;
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Game 
 {

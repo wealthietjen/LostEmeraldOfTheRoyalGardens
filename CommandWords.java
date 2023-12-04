@@ -1,6 +1,8 @@
+// Wealthie Tjendera K22046226
+
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.
+ * This class is part of the "Lost Emerald of the Royal Gardens" application. 
+ * "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.
  * 
  * This class holds an enumeration of all command words known to the game.
  * It is used to recognise commands as they are typed in.

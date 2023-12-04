@@ -1,11 +1,20 @@
+// Wealthie Tjendera K22046226
+
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * This class is part of the "Lost Emerald of the Royal Gardens" application. 
+ * "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.  
  *
  * This class holds information about a command that was issued by the user.
- * A command currently consists of two strings: a command word and a second
+ * A command consists of a maximum of three strings.
+ * 
+ * A command can consist of two strings, a command word and a second
  * word (for example, if the command was "take map", then the two strings
  * obviously are "take" and "map").
+ * 
+ * A command can consist of three strings, a command word and the following two
+ * words that will be processed as a singular entity instead of two separate ones. 
+ * (for example, if the command was "read fallen note", then the command word will be
+ * "read", and "fallen note" will be considered as one entity)
  * 
  * The way this is used is: Commands are already checked for being valid
  * command words. If the user entered an invalid command (a word that is not
