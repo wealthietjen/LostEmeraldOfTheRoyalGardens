@@ -27,13 +27,13 @@ public class Game
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private Item emerald;
     private Item bag;
-    private Item storybook;
+    private Item fallenNote;
     private Character faerie;
     private Character goblin;
     private Character elf;
     private Room fieldOfGold;
-    private Room crystallinePath;
     private ArrayList<Room> roomsVisited = new ArrayList<Room>();
+    private String setStory;
 
 
     public static void main(String[] args) {
@@ -58,7 +58,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room gardenEntrance, mellowMeadow, holyGrail, nightfallGarden, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
+        Room gardenEntrance, mellowMeadow, holyGrail, nightfallGarden, crystallinePath, faerieLands, tritonsTrident, sunFields, riddledWonders, jadePalace;
       
         // create the rooms
         gardenEntrance = new Room("entrance to the Royal Gardens", false);
@@ -88,7 +88,7 @@ public class Game
         holyGrail.setExit("west", nightfallGarden);
         holyGrail.setExit("east", faerieLands);
         holyGrail.setExit("south", gardenEntrance);
-        holyGrail.setDetailedDesc("There is a children's storybook in this room. \nType 'read children's storybook' to learn more.");
+        holyGrail.setDetailedDesc("There is a fallen note in this room. \nType 'read fallen note' to learn more.");
 
         nightfallGarden.setExit("north", crystallinePath);
         nightfallGarden.setExit("east", holyGrail);
@@ -119,17 +119,17 @@ public class Game
         // create items and set whether they are collectable or not
         emerald = new Item("Emerald", 30, true);
         bag = new Item("Bag", 10, true);
-        storybook = new Item("Storybook", 20, false);
+        fallenNote = new Item("Fallen note", 5, false);
 
         // set item desc
         emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold. \nTo return the gem, type 'place emerald'.");
         bag.setItemDesc("A convenient tool that stores all your collectable items.");
-        storybook.setItemDesc("Find out more about the Royal Gardens through this item...");
+        fallenNote.setItemDesc("Find out more about the Royal Gardens through this item...");
 
         // assign an item to each room
         jadePalace.assignItem(emerald);
         fieldOfGold.assignItem(bag);
-        holyGrail.assignItem(storybook);
+        holyGrail.assignItem(fallenNote);
 
         // make the characters
         faerie = new Character("faerie", faerieLands, tritonsTrident);
@@ -178,7 +178,8 @@ public class Game
     {
         System.out.println();
         System.out.println("Welcome to the Royal Gardens!");
-        System.out.println("Royal Gardens is a new, incredibly boring adventure game.");
+        System.out.println("Royal Gardens is a new adventure game.");
+        System.out.println("Your goal in this game is to locate the lost Emerald of the Royal Gardens and return it to its rightful place.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -214,7 +215,7 @@ public class Game
             takeItem(secondWord);
         }
         else if (commandWord.equalsIgnoreCase("read")) {
-            readStorybook(secondWord);
+            readFallenNote(secondWord);
         }
         else if(commandWord.equalsIgnoreCase("place")) {
             placeItem(secondWord);
@@ -275,7 +276,7 @@ public class Game
      * print out the story and history behind the royal gardens
      * when the method is called
      */
-    public void readStorybook(String itemName)
+    public void readFallenNote(String itemName)
     {
         if(itemName == null)
         {
@@ -284,7 +285,7 @@ public class Game
             return;
         }
 
-        if (!itemName.equalsIgnoreCase("children's storybook")) 
+        if (!itemName.equalsIgnoreCase("fallen note")) 
         {
             System.out.println("Item is not readable.");
             return;
@@ -295,8 +296,15 @@ public class Game
             System.out.println("There is no item in the room."); 
             return;   
         }
-        
-        System.out.println("the story will uh come prolly last");
+
+        setStory = "'The Royal Gardens is a place full of wonders and magic. It is home to some of the most beautiful and exotic flora and fauna one could ever hope to see in their lifetime. \nThis is a place wherein every creature - big or small - lives in harmony. \nThe royal family to which this garden belongs to still reigns to this day. It took them many years to develop the gardens into the beauty it is today, and as such, \nthe Royal Gardens became a symbol of determination and strength unlike any other. \nOnly members of the royal family and those appointed by them are allowed access to the gardens. Otherwise, entry to the Royal Gardens is strictly prohibited.'";
+        System.out.println();
+        System.out.println("The note reads...");
+        System.out.println();
+        System.out.println(setStory);
+        System.out.println();
+        System.out.println("-- This is where the note ends. You may now proceed to the next desired room using the 'go' command. --");
+        System.out.println();
     }
 
     /**
@@ -371,9 +379,10 @@ public class Game
             return;
         }
 
-        if (!(itemName.equalsIgnoreCase("bag") || itemName.equalsIgnoreCase("storybook") || itemName.equalsIgnoreCase("emerald")))
+        if (!(itemName.equalsIgnoreCase("bag") || itemName.equalsIgnoreCase("fallen note") || itemName.equalsIgnoreCase("emerald")))
         {
             System.out.println("Invalid item inside world");
+            return;
         }
 
         for (Item i: inventory)
@@ -468,16 +477,19 @@ public class Game
             {
                 System.out.println();
                 System.out.println(faerie.getCharDesc());
+                System.out.println();
             }
             else if (currentRoom.equals(elf.getCurrentRoom()))
             {
                 System.out.println();
                 System.out.println(elf.getCharDesc());
+                System.out.println();
             }
             else if (currentRoom.equals(goblin.getCurrentRoom())) 
             {
                 System.out.println();
-                System.out.println(goblin.getCharDesc());    
+                System.out.println(goblin.getCharDesc());   
+                System.out.println(); 
             }
 
             
