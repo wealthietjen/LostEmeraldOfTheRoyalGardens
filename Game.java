@@ -33,7 +33,6 @@ public class Game
     private Character elf;
     private Room fieldOfGold;
     private ArrayList<Room> roomsVisited = new ArrayList<Room>();
-    private String setStory;
 
 
     public static void main(String[] args) {

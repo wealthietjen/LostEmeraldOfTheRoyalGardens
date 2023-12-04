@@ -1,7 +1,6 @@
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Class Room - a room in an adventure game.
@@ -23,7 +22,6 @@ public class Room
     private String description;
     private String detailedDesc;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    public HashSet<String> allItems;
     private Item item;
     private boolean isTransporterRoom;
 
@@ -38,7 +36,6 @@ public class Room
         this.description = description;
         this.isTransporterRoom = isTransporterRoom;
         exits = new HashMap<>();
-        allItems = new HashSet<>();
         Room.allRoomsCreated.add(this);
     }
 
