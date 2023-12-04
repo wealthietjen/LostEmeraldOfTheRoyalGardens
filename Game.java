@@ -123,7 +123,7 @@ public class Game
         fallenNote = new Item("Fallen note", 5, false);
 
         // set item desc
-        emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold. \nTo return the gem, type 'place emerald'.");
+        emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold. \n(Hint: In order to return/place an item in a room, type in the command 'place ' + item name.)");
         bag.setItemDesc("A convenient tool that stores all your collectable items.");
         fallenNote.setItemDesc("Find out more about the Royal Gardens through this item...");
 
@@ -271,7 +271,10 @@ public class Game
         System.out.println("------------------------------------------------");
         System.out.println(currentRoom.getLongDescription());
         System.out.println();
-        currentRoom.getDetailedDesc();
+        if (currentRoom.getAssignedItem() != null) 
+        {
+            currentRoom.getDetailedDesc();   
+        }
     }
 
     /**
@@ -449,6 +452,9 @@ public class Game
             if (nextRoom.isTransporterRoom() == true) 
             {   
                 System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println("IMPORTANT NOTICE:");
                 System.out.println("You have entered the magic teleporter room. \nYou will now be teleported to a random room in the Royal Gardens.");
                 Random rand = new Random();
                 int upperBound = 10;
@@ -480,7 +486,10 @@ public class Game
             System.out.println("------------------------------------------------");
             System.out.println(currentRoom.getLongDescription());
             System.out.println();
-            currentRoom.getDetailedDesc();
+            if (currentRoom.getAssignedItem() != null) 
+            {
+                currentRoom.getDetailedDesc();   
+            }
 
             // make the characters move between their designated rooms
             elf.changeRoom();
