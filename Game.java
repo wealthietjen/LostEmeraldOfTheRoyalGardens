@@ -88,7 +88,7 @@ public class Game
         holyGrail.setExit("west", nightfallGarden);
         holyGrail.setExit("east", faerieLands);
         holyGrail.setExit("south", gardenEntrance);
-        holyGrail.setDetailedDesc("There is a children's storybook in this room. \nType 'read storybook' to learn more.");
+        holyGrail.setDetailedDesc("There is a children's storybook in this room. \nType 'read children's storybook' to learn more.");
 
         nightfallGarden.setExit("north", crystallinePath);
         nightfallGarden.setExit("east", holyGrail);
@@ -122,7 +122,7 @@ public class Game
         storybook = new Item("Storybook", 20, false);
 
         // set item desc
-        emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold.");
+        emerald.setItemDesc("You have successfully obtained the missing gem of the Royal Gardens! \nYour next and final mission is to return the gem to its rightful place \nin the Field of Gold. \nTo return the gem, type 'place emerald'.");
         bag.setItemDesc("A convenient tool that stores all your collectable items.");
         storybook.setItemDesc("Find out more about the Royal Gardens through this item...");
 
@@ -165,7 +165,9 @@ public class Game
             if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
             {
                 System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
+                finished = true;
             }
+
         }
     }
 
@@ -261,6 +263,7 @@ public class Game
         currentRoom = lastRoomVisited;
 
         System.out.println();
+        System.out.println("------------------------------------------------");
         System.out.println(currentRoom.getLongDescription());
         System.out.println();
         currentRoom.getDetailedDesc();
@@ -281,7 +284,7 @@ public class Game
             return;
         }
 
-        if (!itemName.equalsIgnoreCase("storybook")) 
+        if (!itemName.equalsIgnoreCase("children's storybook")) 
         {
             System.out.println("Item is not readable.");
             return;
@@ -368,7 +371,7 @@ public class Game
             return;
         }
 
-        if (!(itemName.equals("bag") || itemName.equals("storybook") || itemName.equals("emerald")))
+        if (!(itemName.equalsIgnoreCase("bag") || itemName.equalsIgnoreCase("storybook") || itemName.equalsIgnoreCase("emerald")))
         {
             System.out.println("Invalid item inside world");
         }
@@ -378,7 +381,9 @@ public class Game
             if (i.getName().equalsIgnoreCase(itemName))
             {
                 // return the item to the current room and remove from inventory
+                System.out.println();
                 System.out.println(itemName + " has been removed from your inventory.");
+                System.out.println();
 
                 // remove from inventory 
                 inventory.remove(i);
@@ -448,6 +453,7 @@ public class Game
             // do for both
             currentRoom = nextRoom;
             System.out.println();
+            System.out.println("------------------------------------------------");
             System.out.println(currentRoom.getLongDescription());
             System.out.println();
             currentRoom.getDetailedDesc();
