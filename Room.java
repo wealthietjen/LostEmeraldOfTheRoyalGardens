@@ -42,21 +42,37 @@ public class Room
         Room.allRoomsCreated.add(this);
     }
 
+    /**
+     * determine whether the room is a magic transporter room or not
+     * @return true if the room is a magic transporter room. false if not.
+     */
     public boolean isTransporterRoom()
     {
         return this.isTransporterRoom;
     }
 
+    /**
+     * assigns an item to a room
+     * @param item item to be assigned
+     */
     public void assignItem(Item item)
     {
         this.item = item;
     }
 
+    /**
+     * get the item in a room
+     * @return the item in the room
+     */
     public Item getAssignedItem()
     {
         return item;
     }
 
+    /**
+     * checks whether there are any items in the room
+     * @return true if the room has item/s. false if not.
+     */
     public boolean hasAssignedItem()
     {
         if (this.item != null) 
@@ -67,22 +83,21 @@ public class Room
         return false;
     }
 
+    /**
+     * set the description of an item
+     * @param detailedDesc description of the item
+     */
     public void setDetailedDesc(String detailedDesc)
     {
         this.detailedDesc = detailedDesc;
     }
 
+    /**
+     * get the description of the item when the method is called
+     */
     public void getDetailedDesc()
     {
         System.out.println(detailedDesc);
-    }
-
-    public void addItems(String[] roomItems) 
-    {
-        for (String items : roomItems) 
-        {
-            allItems.add(items);    
-        }
     }
 
     /**
