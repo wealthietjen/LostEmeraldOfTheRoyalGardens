@@ -133,7 +133,7 @@ public class Game
         holyGrail.assignItem(fallenNote);
 
         // create characters and set their assigned rooms to alternate between
-        faerie = new Character("faerie", faerieLands, tritonsTrident);
+        faerie = new Character("faerie", tritonsTrident, faerieLands);
         goblin = new Character("goblin", holyGrail, mellowMeadow);
         elf = new Character("elf", jadePalace, riddledWonders);
 
@@ -313,10 +313,8 @@ public class Game
         System.out.println("This is a place wherein every creature - big or small - lives in harmony. The royal family to which this garden belongs to still reigns to this day.");
         System.out.println("It took them many years to develop the gardens into the beauty it is today, and as such, the Royal Gardens became a symbol of determination");
         System.out.println("and strength unlike any other. Only members of the royal family and those appointed by them are allowed access to the gardens.");
-        System.out.println("Otherwise, entry to the Royal Gardens is strictly prohibited.'");
-        System.out.println();
-        System.out.println("-- This is where the note ends. You may now proceed to the next desired room using the 'go' command. --");
-        System.out.println();
+        System.out.println("Otherwise, entry to the Royal Gardens is strictly prohibited.'\n");
+        System.out.println("-- This is where the note ends. You may now proceed to the next desired room using the 'go' command. --\n");
     }
 
     /**
@@ -376,8 +374,7 @@ public class Game
 
             // add to inventory if item successfully picked up and print out its description
             inventory.add(assignedItem);
-            System.out.println(assignedItem.getName() + " successfully added to inventory.");
-            System.out.println();
+            System.out.println(assignedItem.getName() + " successfully added to inventory.\n");
             System.out.println(assignedItem.getItemDesc());
             currentRoom.assignItem(null);
             
@@ -534,6 +531,7 @@ public class Game
             return false;
         }
         else {
+            System.out.println("\nThank you for playing the Lost Emerald of the Royal Gardens. \nGoodbye!\n");
             return true;  // signal that we want to quit
         }
     }
