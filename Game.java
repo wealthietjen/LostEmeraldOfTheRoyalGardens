@@ -305,11 +305,15 @@ public class Game
         }
 
         // set and print the contents of the fallen note
-        setStory = "'The Royal Gardens is a place full of wonders and magic. It is home to some of the most beautiful and exotic flora and fauna one could ever hope to see in their lifetime. \nThis is a place wherein every creature - big or small - lives in harmony. \nThe royal family to which this garden belongs to still reigns to this day. It took them many years to develop the gardens into the beauty it is today, and as such, \nthe Royal Gardens became a symbol of determination and strength unlike any other. \nOnly members of the royal family and those appointed by them are allowed access to the gardens. Otherwise, entry to the Royal Gardens is strictly prohibited.'";
         System.out.println();
         System.out.println("The note reads...");
         System.out.println();
-        System.out.println(setStory);
+        System.out.println("'The Royal Gardens is a place full of wonders and magic.");
+        System.out.println("It is home to some of the most beautiful and exotic flora and fauna one could ever hope to see in their lifetime.");
+        System.out.println("This is a place wherein every creature - big or small - lives in harmony. The royal family to which this garden belongs to still reigns to this day.");
+        System.out.println("It took them many years to develop the gardens into the beauty it is today, and as such, the Royal Gardens became a symbol of determination");
+        System.out.println("and strength unlike any other. Only members of the royal family and those appointed by them are allowed access to the gardens.");
+        System.out.println("Otherwise, entry to the Royal Gardens is strictly prohibited.'");
         System.out.println();
         System.out.println("-- This is where the note ends. You may now proceed to the next desired room using the 'go' command. --");
         System.out.println();
