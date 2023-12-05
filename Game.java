@@ -24,7 +24,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private int currentWeight = 0;
-    private int maxWeight = 60;
+    private int maxWeight = 45;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private Item emerald;
     private Item bag;
@@ -348,7 +348,7 @@ public class Game
         // unable to pick up item if the total weight exceeds max weight that can be carried at a time
         if ((currentWeight + itemWeight) > maxWeight)
         {
-            System.out.println("You have reached the maximum carry weight. \nReturn back some items before proceeding.");
+            System.out.println("You have reached the maximum carry weight. \nPlace back some items before proceeding.");
         }
 
         else
