@@ -290,18 +290,18 @@ public class Game
             return;
         }
 
-        if (!itemName.equalsIgnoreCase("fallen note")) 
-        {
-            // if the second word is not a readable item, it cannot be read
-            System.out.println("Item is not readable.");
-            return;
-        }
-
         if (currentRoom.hasAssignedItem() == false) 
         {
             // if there is no item in the current room then there is nothing to be read
             System.out.println("There is no item to read in the room."); 
             return;   
+        }
+
+        if (!itemName.equalsIgnoreCase("fallen note")) 
+        {
+            // if the second word is not a readable item, it cannot be read
+            System.out.println("Item is not readable.");
+            return;
         }
 
         // set and print the contents of the fallen note
@@ -356,7 +356,7 @@ public class Game
             // Check that they are trying to pick up the assigned item
             if(!itemName.equalsIgnoreCase(assignedItem.getName()))
             {
-                System.out.println("Item does not exist.");
+                System.out.println("Item does not exist in this room.");
                 return;
             }
 

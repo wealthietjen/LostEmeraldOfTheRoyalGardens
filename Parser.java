@@ -60,6 +60,21 @@ public class Parser
             }
         }
 
+        if (word1 != null) 
+        {
+            word1 = word1.trim().toLowerCase();    
+        }
+        
+        if (word2 != null) 
+        {
+            word2 = word2.trim().toLowerCase();
+        }
+        
+        if (word3 != null) 
+        {
+            word3 = word3.trim().toLowerCase();    
+        }
+        
         // Now check whether this word is known. If so, create a command
         // with it. If not, create a "null" command (for unknown command).
         if (word3 != null)

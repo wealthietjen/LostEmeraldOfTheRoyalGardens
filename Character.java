@@ -62,7 +62,7 @@ public class Character
     public void changeRoom()
     {
         // when the player moves, so do the characters
-        // whenever the goRoom method is called, the moveAround method will be called too
+        // whenever the goRoom method is called, the changeRoom method will be called too
         Room tempRoom = firstRoom;
         firstRoom = secondRoom;
         secondRoom = tempRoom;
