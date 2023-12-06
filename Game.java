@@ -164,7 +164,7 @@ public class Game
             
             // set the winning condition
             // once satisfied, game finishes and quits
-            if (fieldOfGold.itemIsInRoom(emerald))
+            if (fieldOfGold.checkItemInRoom(emerald.getName()) != null)
             {
                 System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
                 finished = true; 
@@ -340,17 +340,15 @@ public class Game
             return;
         }
 
-        // get item and its weight from room
-        int itemIndex = currentRoom.getNumItemsInRoom() - 1;
-
+        // check if the item is in the room
         Item assignedItem = currentRoom.checkItemInRoom(itemName);
-        // Check that they are trying to pick up the assigned item
         if(assignedItem == null)
         {
             System.out.println("Item does not exist in this room.");
             return;
         }
 
+        // get the item's weight
         int itemWeight = assignedItem.getWeight();
         
         // unable to pick up item if the total weight exceeds max weight that can be carried at a time
@@ -361,8 +359,6 @@ public class Game
 
         else
         {
-            
-
             // check that they are trying to pick up a collectable item
             if(assignedItem.isCollectableItem() == false)
             {

@@ -68,16 +68,20 @@ public class Room
         return items.get(index);
     }
 
+    /**
+     * get the number of items in the room
+     * @return the number of items in the room
+     */
     public int getNumItemsInRoom()
     {
         return items.size();
     }
 
-    public boolean itemIsInRoom(Item item)
-    {
-        return items.contains(item);
-    }
-
+    /**
+     * check whether the item is in the room
+     * @param itemName item to check if is in the room
+     * @return item if the item is in the room, null otherwise
+     */
     public Item checkItemInRoom(String itemName)
     {
         for (Item item : items) 
@@ -91,6 +95,10 @@ public class Room
         return null;
     }
 
+    /**
+     * remove an item from the room
+     * @param item item to be removed
+     */
     public void removeItemFromRoom(Item item)
     {
         items.remove(item);
