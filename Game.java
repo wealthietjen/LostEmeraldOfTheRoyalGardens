@@ -24,7 +24,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private int currentWeight = 0;
-    private int maxWeight = 45;
+    private int maxWeight = 40;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private Item emerald;
     private Item bag;
@@ -128,9 +128,9 @@ public class Game
         fallenNote.setItemDesc("Find out more about the Royal Gardens through this item...");
 
         // assign an item to each room
-        jadePalace.assignItem(emerald);
-        fieldOfGold.assignItem(bag);
-        holyGrail.assignItem(fallenNote);
+        jadePalace.addItem(emerald);
+        fieldOfGold.addItem(bag);
+        holyGrail.addItem(fallenNote);
 
         // create characters and set their assigned rooms to alternate between
         faerie = new Character("faerie", tritonsTrident, faerieLands);
@@ -164,12 +164,11 @@ public class Game
             
             // set the winning condition
             // once satisfied, game finishes and quits
-            if (emerald.equals(fieldOfGold.getAssignedItem()) == true)
+            if (fieldOfGold.itemIsInRoom(emerald))
             {
                 System.out.println("Congratulations! \nEmerald has been placed back to its rightful place. \nThank you for playing! See you in our next adventure. Goodbye!");
                 finished = true; 
             }
-
         }
     }
 
@@ -271,7 +270,7 @@ public class Game
         System.out.println("------------------------------------------------");
         System.out.println(currentRoom.getLongDescription());
         System.out.println();
-        if (currentRoom.getAssignedItem() != null) 
+        if (currentRoom.getNumItemsInRoom() > 0) 
         {
             currentRoom.getDetailedDesc();   
         }
@@ -342,7 +341,16 @@ public class Game
         }
 
         // get item and its weight from room
-        Item assignedItem = currentRoom.getAssignedItem();
+        int itemIndex = currentRoom.getNumItemsInRoom() - 1;
+
+        Item assignedItem = currentRoom.checkItemInRoom(itemName);
+        // Check that they are trying to pick up the assigned item
+        if(assignedItem == null)
+        {
+            System.out.println("Item does not exist in this room.");
+            return;
+        }
+
         int itemWeight = assignedItem.getWeight();
         
         // unable to pick up item if the total weight exceeds max weight that can be carried at a time
@@ -353,12 +361,7 @@ public class Game
 
         else
         {
-            // Check that they are trying to pick up the assigned item
-            if(!itemName.equalsIgnoreCase(assignedItem.getName()))
-            {
-                System.out.println("Item does not exist in this room.");
-                return;
-            }
+            
 
             // check that they are trying to pick up a collectable item
             if(assignedItem.isCollectableItem() == false)
@@ -376,7 +379,8 @@ public class Game
             inventory.add(assignedItem);
             System.out.println(assignedItem.getName() + " successfully added to inventory.\n");
             System.out.println(assignedItem.getItemDesc());
-            currentRoom.assignItem(null);
+            System.out.println();
+            currentRoom.removeItemFromRoom(assignedItem);
             
         }
     }
@@ -415,7 +419,10 @@ public class Game
                 inventory.remove(i);
 
                 // add to the room
-                currentRoom.assignItem(i);
+                currentRoom.addItem(i);
+
+                // subtract item weight from total weight
+                currentWeight =- i.getWeight();
 
                 return;
             }
@@ -423,7 +430,6 @@ public class Game
 
         // print if the item is not in player's inventory
         System.out.println("Item is not in your inventory.");
-        
 
     }   
 
@@ -487,7 +493,7 @@ public class Game
             System.out.println("------------------------------------------------");
             System.out.println(currentRoom.getLongDescription());
             System.out.println();
-            if (currentRoom.getAssignedItem() != null) 
+            if (currentRoom.getNumItemsInRoom() > 0) 
             {
                 currentRoom.getDetailedDesc();   
             }

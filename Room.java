@@ -24,7 +24,7 @@ public class Room
     private String description;
     private String detailedDesc;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private Item item;
+    private ArrayList<Item> items = new ArrayList<Item>();
     private boolean isTransporterRoom;
 
     /**
@@ -51,21 +51,49 @@ public class Room
     }
 
     /**
-     * assigns an item to a room
-     * @param item item to be assigned
+     * add an item to a room
+     * @param item item to be added
      */
-    public void assignItem(Item item)
+    public void addItem(Item item)
     {
-        this.item = item;
+        items.add(item);
     }
 
     /**
      * get the item in a room
      * @return the item in the room
      */
-    public Item getAssignedItem()
+    public Item getAssignedItem(int index)
     {
-        return item;
+        return items.get(index);
+    }
+
+    public int getNumItemsInRoom()
+    {
+        return items.size();
+    }
+
+    public boolean itemIsInRoom(Item item)
+    {
+        return items.contains(item);
+    }
+
+    public Item checkItemInRoom(String itemName)
+    {
+        for (Item item : items) 
+        {
+            if (item.getName().equalsIgnoreCase(itemName)) 
+            {
+                return item;    
+            }
+        }
+
+        return null;
+    }
+
+    public void removeItemFromRoom(Item item)
+    {
+        items.remove(item);
     }
 
     /**
@@ -74,7 +102,7 @@ public class Room
      */
     public boolean hasAssignedItem()
     {
-        if (this.item != null) 
+        if (items.size() > 0) 
         {
             return true;
         }
@@ -90,6 +118,7 @@ public class Room
     {
         this.detailedDesc = detailedDesc;
     }
+
 
     /**
      * get the description of the item when the method is called
