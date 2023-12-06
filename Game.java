@@ -2,8 +2,8 @@
 
 /**
  *  This class is the main class of the "Lost Emerald of the Royal Gardens" application. 
- *  "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery.
+ *  "Lost Emerald of the Royal Gardens" is a very simple, text based adventure game. Players 
+ *  need to locate and return the lost Emerald to its rightful place in the Royal Gardens.
  * 
  *  To play this game, create an instance of this class and call the "play"
  *  method.

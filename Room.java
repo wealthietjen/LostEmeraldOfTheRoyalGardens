@@ -8,7 +8,11 @@
  *
  * A "Room" represents one location in the scenery of the game.  It is 
  * connected to other rooms via exits.  For each existing exit, the room 
- * stores a reference to the neighboring room.
+ * stores a reference to the neighboring room. 
+ * 
+ * The class contains methods to check if the room is the magic transporter room and 
+ * if the room has any assigned items. There are also methods to add and remove items; 
+ * get assigned item and get the number of items in the room; and methods to set and get the room description.
  * 
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29

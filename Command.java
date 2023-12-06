@@ -8,8 +8,8 @@
  * A command consists of a maximum of three strings.
  * 
  * A command can consist of two strings, a command word and a second
- * word (for example, if the command was "take map", then the two strings
- * obviously are "take" and "map").
+ * word (for example, if the command was "take bag", then the two strings
+ * obviously are "take" and "bag").
  * 
  * A command can consist of three strings, a command word and the following two
  * words that will be processed as a singular entity instead of two separate ones. 
