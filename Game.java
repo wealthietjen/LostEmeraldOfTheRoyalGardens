@@ -24,7 +24,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private int currentWeight = 0;
-    private int maxWeight = 40;
+    private int maxWeight = 30;
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private Item emerald;
     private Item bag;
@@ -255,7 +255,7 @@ public class Game
         }
 
         // make a new list of rooms visited excluding the current room and set that as the new roomsVisited list.
-        // get the last room visited by getting the room stored in the second last index of the roomsVisited list.
+        // get the last room visited by getting the room stored in the second last index of the original roomsVisited list.
         // set that last room visited as the current room and print out the room's desciption. 
         ArrayList<Room> newList = new ArrayList<>();
         for (int i = 0; i < (roomsVisited.size() -1); i++)
@@ -354,7 +354,7 @@ public class Game
         // unable to pick up item if the total weight exceeds max weight that can be carried at a time
         if ((currentWeight + itemWeight) > maxWeight)
         {
-            System.out.println("You have reached the maximum carry weight. \nPlace back some items before proceeding.");
+            System.out.println("You have reached the maximum carry weight. \nPlace back some items before proceeding by typing the phrase 'place' + item.");
         }
 
         else
